@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">android_1_hw</string>
+    <string name="enter_text">please enter your text</string>
+    <string name="click">Click!</string>
+    <string name="hi">Hi!</string>
+    <string name="bye">Bye!</string>
+    <string name="mail">Please enter your email</string>
+    <string name="phone">Please enter your phone number</string>
+    <string name="name">Please enter your name</string>
+    <string name="number">Please enter your number</string>
+    <string name="password">Please enter your password</string>
 </resources>
