@@ -16,7 +16,13 @@
             android:id="@+id/text_view_calculator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_span="3" />
+            android:layout_span="2" />
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete" />
 
         <Button
             android:id="@+id/button_equals"
@@ -124,10 +130,10 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/button_delete"
+            android:id="@+id/button_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/delete" />
+            android:text="@string/clear" />
 
         <Button
             android:id="@+id/button_zero"
