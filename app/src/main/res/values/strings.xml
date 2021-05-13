@@ -15,8 +15,13 @@
     <string name="plus">+</string>
     <string name="equals">=</string>
     <string name="minus">-</string>
-    <string name="multiplication">*</string>
+    <string name="multiplication">X</string>
     <string name="delete">delete</string>
     <string name="clear">clear</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="on">on</string>
+    <string name="off">off</string>
+    <string name="settings">settings</string>
+
 
 </resources>
