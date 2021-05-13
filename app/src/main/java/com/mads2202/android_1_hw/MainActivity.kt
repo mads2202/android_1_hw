@@ -1,5 +1,8 @@
 package com.mads2202.android_1_hw
 
+import android.app.Activity
+import android.content.Intent
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -7,10 +10,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.mads2202.android_1_hw.services.CalculatorService
+import com.mads2202.android_1_hw.services.SettingsActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     companion object {
         const val CALCULATIONS = "calculations"
+        const val SETTINGS_REQUEST_CODE = 1
+        const val THEME = "THEME"
     }
 
     private lateinit var mButtonZero: Button
@@ -32,9 +38,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mButtonDelete: Button
     private lateinit var mButtonPoint: Button
     private lateinit var mCalculatorTextView: TextView
+    private lateinit var mSettingsButton: Button
+    private var themeId: Int = R.style.Theme_Android_1_hw_my_theme_dark
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        themeId = savedInstanceState?.getInt(THEME) ?: themeId
+        setTheme(themeId)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initCalculatorViews()
@@ -62,6 +72,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mButtonDelete = findViewById(R.id.button_delete)
         mButtonPoint = findViewById(R.id.button_point)
         mCalculatorTextView = findViewById(R.id.text_view_calculator)
+        mSettingsButton = findViewById(R.id.button_settings)
         setButtonsOnClickListener()
 
     }
@@ -79,7 +90,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mButton8.setOnClickListener(this)
         mButton9.setOnClickListener(this)
         mButtonEquals.setOnClickListener {
-            mCalculatorTextView.text = CalculatorService(mCalculatorTextView.text.toString()).startCalculations()
+            mCalculatorTextView.text =
+                CalculatorService(mCalculatorTextView.text.toString()).startCalculations()
         }
         mButtonDivision.setOnClickListener(this)
         mButtonMultiplication.setOnClickListener(this)
@@ -92,8 +104,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             mCalculatorTextView.text = mCalculatorTextView.text.dropLast(1)
         }
         mButtonPoint.setOnClickListener(this)
-
-
+        mSettingsButton.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra(THEME,themeId)
+            startActivityForResult(intent, SETTINGS_REQUEST_CODE)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -105,6 +120,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(CALCULATIONS, mCalculatorTextView.text.toString())
+        outState.putInt(THEME, themeId)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            themeId = R.style.Theme_Android_1_hw_my_theme_dark
+            recreate()
+        } else {
+            themeId = R.style.Theme_Android_1_hw_my_theme
+            recreate()
+        }
+    }
+
 
 }
